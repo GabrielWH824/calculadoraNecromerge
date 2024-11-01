@@ -41,25 +41,27 @@ class InvocadoresRango2 extends Invocadores {
         let base = 2 ** exponente
 
         if (runa1 >= nivRuna1 && runa2 >= nivRuna2) {
-            let cantidadDeInvocadores
-            if (runa1 > runa2) {
-                cantidadDeInvocadores = runa2 / 50
+            let cantPorRunas1 = runa1 / 20
+            let cantPorRunas2 = runa2 / 50
+            let redondearCantidad
+            if (cantPorRunas1 < cantPorRunas2) {
+                redondearCantidad = Math.floor(cantPorRunas1)
             }
             else {
-                cantidadDeInvocadores = runa1 / 20
+                redondearCantidad = Math.floor(cantPorRunas2)
             }
-            let redondearCantidad = Math.floor(cantidadDeInvocadores)
             console.log("\x1b[33m%s\x1b[0m", `${this.nombre}: Podes crear ${redondearCantidad} para alcanzar el nivel ${nivel}(es de base: ${base})`)
-            if (cantidadDeInvocadores >= 32) {
+            if (redondearCantidad >= 32) {
                 console.log(`Podes crear un Legenday Minion`)
             }
-        } else {
+        } 
+        else {
             this.calcularInvocador(runa1, runa2, nivel -= 1, exponente)
         }
     }
 }
 class InvocadoresRango3 extends Invocadores {
-    InvocadoresRango3(runa1, runa2, nivel, exponente) {
+    calcularInvocador(runa1, runa2, nivel, exponente) {
         if (nivel == 0) {
             throw new Error("No podes crear ningun altar");
         }
@@ -72,7 +74,7 @@ class InvocadoresRango3 extends Invocadores {
         if (runa1 >= nivRuna1 && runa2 >= nivRuna2) {
             let cantidadDeInvocadores = runa1 / 30
             let redondearCantidad = Math.trunc(cantidadDeInvocadores)
-            console.log("\x1b[35m%s\x1b[0m", `Podes crear ${redondearCantidad} ${this.nombre} para alcanzar el nivel ${nivel}(es de base: ${base})`)
+            console.log("\x1b[35m%s\x1b[0m", `${this.nombre}: Podes crear ${redondearCantidad} para alcanzar el nivel ${nivel}(es de base: ${base})`)
             if (cantidadDeInvocadores >= 32) {
                 console.log(`Podes crear un Legenday Minion`)
             }
@@ -81,8 +83,6 @@ class InvocadoresRango3 extends Invocadores {
         }
     }
 }
-
-
 
 const grave = new InvocadoresRango1("Grave")
 const supCupboard = new InvocadoresRango1("Supply Cupboard")
@@ -93,5 +93,6 @@ const portal = new InvocadoresRango3("Portal")
 
 
 // grave.calcularInvocador(300, 5, null)
-lectern.calcularInvocador(200, 150, 5, null)
-
+supCupboard.calcularInvocador(979, 5, null)
+lectern.calcularInvocador(246, 300, 5, null)
+portal.calcularInvocador(57, 174, 5, null)
